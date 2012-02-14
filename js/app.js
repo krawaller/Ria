@@ -12,4 +12,5 @@ define([
 	return {
 		init : init	
 	};
+
 });

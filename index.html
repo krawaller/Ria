@@ -7,13 +7,19 @@
 
     <!-- Templates -->
     <script type="text/template" id="create-task-template">
-    	<h2>Create Task</h2>
-    	<form action="#" method="POST">
+        <h2>Create Task</h2>
+    	<form action="" method="POST" id="create-task-form">
+            <label for="categories">Category</label>
+            <select name="select-category" id="create-task-select-category">
+                <option>Loop through categories..</option>
+            </select>
     		<label for="task-content">Task:</label>
-    		<input type="text" name="task-content" />
-    		<input type="submit" name="task-submit" value="Add task" />
+    		<input type="text" name="task-content" class="task-content" />
+    		<input type="button" name="task-submit" id="submit-task-form" value="Add task" />
     	</form>
     </script>
+
+
 </head>
 <body>
 	<div id="wrapper">
