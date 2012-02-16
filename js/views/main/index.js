@@ -1,23 +1,22 @@
 define(
-	['jQuery', 'Underscore', 'Backbone', 'models/CategoryModel', 'collections/CategoryCollection'],
-	function( $, _, Backbone, CategoryModel, CategoryCollection ) {
+	[	
+		'jQuery',
+		'Underscore',
+		'Backbone'
+	],
+
+	function( $, _, Backbone ) {
 		var mainIndexView = Backbone.View.extend({
 			collectionCount : null,
 
-			initialize : function() {
+			initialize : function( categoryCollection, taskCollection, userCollection, todoEventCollection ) {
 				this.template = _.template( $( '#create-task-template' ).html() );
-				
-				CategoryCollection.fetch();
-				
-				if ( CategoryCollection.models.length === 0 ) {
-
-					// Create the three default categories.
-					CategoryCollection.create( { categoryId : 1, label : 'Work' } );
-					CategoryCollection.create( { categoryId : 2, label : 'Scool' } );
-					CategoryCollection.create( { categoryId : 3, label : 'Private' } );
-				}
-
 				this.collectionCount = ( CategoryCollection.models.length );
+
+				this.categoryCollection = categoryCollection;
+				this.taskCollection = taskCollection;
+				this.userCollection = userCollection;
+				this.todoEventCollection = todoEventCollection;
 			},
 
 			events : {
@@ -25,18 +24,19 @@ define(
 			},
 
 			render : function() {
-				$(this.el).html( this.template );
+				$(this.el).html( this.template( {
+					category : this.categoryCollection.models
+
+				} ) );
 			},
 
 			submitForm : function( e ) {
-				var task = $('.task-content').val();
-				CategoryCollection.create( {categoryId : '1', label : task } );
-				if ( CategoryCollection.models.length > 0 ) {
-					console.log( "Större än noll." );
-				}
+				var taskContent = $('.task-content').val();
+				var taskCategory = $('.task-category').val();
+				
 			}
 		});
 
-		return new mainIndexView;
+		return mainIndexView;
 	}
 );

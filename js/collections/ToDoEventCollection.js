@@ -1,7 +1,14 @@
-define(
-	var ToDoEventCollection = Backbone.Collection.extends({
-		model : TodoEventModel
-	});
+define( 
+	[
+		'Backbone',
+		'models/ToDoEventModel'
+	],
 
-	return ToDoEventCollection;
+	function( Backbone, TodoEventModel ) {
+		var ToDoEventCollection = Backbone.Collection.extend({
+			model : TodoEventModel
+		});
+
+		return TodoEventModel;
+	}
 );

@@ -1,7 +1,14 @@
-define(
-	var UserCollection = Backbone.Collection.extends({
-		model : UserModel
-	});
+define([
+	'Backbone',
+	'models/UserModel',
+	],
 
-	return UserCollection;
+	function( Backbone, UserModel ) {
+	
+		return Backbone.Collection.extend({
+			model : UserModel,
+
+			localStorage : new Store("User")
+		});
+	}
 );
