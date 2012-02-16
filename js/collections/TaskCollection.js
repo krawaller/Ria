@@ -8,7 +8,11 @@ define([
 	var TasksCollection = Backbone.Collection.extend({
 		model : TaskModel,
 
-		localStorage : new Store("Tasks")
+		localStorage : new Store("Tasks"),
+
+		initialize : function() {
+			this.fetch();
+		}
 	});
 
 	return TasksCollection;	

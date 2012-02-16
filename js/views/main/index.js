@@ -7,16 +7,12 @@ define(
 
 	function( $, _, Backbone ) {
 		var mainIndexView = Backbone.View.extend({
-			collectionCount : null,
-
-			initialize : function( categoryCollection, taskCollection, userCollection, todoEventCollection ) {
+			
+			initialize : function( categoryCollection, taskCollection, userCollection ) {
 				this.template = _.template( $( '#create-task-template' ).html() );
-				this.collectionCount = ( CategoryCollection.models.length );
-
 				this.categoryCollection = categoryCollection;
 				this.taskCollection = taskCollection;
 				this.userCollection = userCollection;
-				this.todoEventCollection = todoEventCollection;
 			},
 
 			events : {
@@ -31,9 +27,22 @@ define(
 			},
 
 			submitForm : function( e ) {
+				// Get the needed values for a task.
 				var taskContent = $('.task-content').val();
 				var taskCategory = $('.task-category').val();
-				
+
+				console.log( this.userCollection.at(0) );
+
+				this.taskCollection.create({ 
+						taskId : ( this.taskCollection.lenth + 1 ),
+						content : taskContent,
+						time : new Date(),
+						completed : false,
+						// Gets the userId from userCollection.
+						// Specified index 0 because limit of one user per browser.
+						userId: this.userCollection.at(0),
+						categoryId : taskCategory
+				});
 			}
 		});
 

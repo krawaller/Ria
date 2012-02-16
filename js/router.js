@@ -9,17 +9,13 @@ define([
 	'views/main/index',
 	'views/user/create'],
 
-	function( $, _, Backbone, CategoryCollection, TaskCollection, UserCollection, TodoEventCollection, indexView, CreateUserView ) {
+	function( $, _, Backbone, CategoryCollection, TaskCollection, UserCollection, TodoEventCollection, IndexView, CreateUserView ) {
 		return AppRouter = Backbone.Router.extend({
 			initialize : function() {
-
-				Backbone.history.start();
-				
 				this.categoryCollection = new CategoryCollection();
 				this.taskCollection = new TaskCollection();
 				this.userCollection = new UserCollection();
 				// this.todoEventCollection = TodoEventCollection();
-				console.log( "Init : ", this );
 			},
 
 			routes : {
@@ -29,24 +25,26 @@ define([
 			},
 
 			Home : function() {
-				console.log( "Home : ", this );
 				// Checks if no user in localStorage
 				if ( this.userCollection.length === 0 ) {
 					this.navigate( 'createUser', { trigger : true, replace : true } );
 				}
 
-
-				// Om användaren finns,
-					// Skapa ny
-				//this.navigate( 'createUser', { trigger : true, replace : true } );	
-				// indexView.render();
-				// $('#createTask').html( indexView.el );
+				var indexView = new IndexView( this.categoryCollection, this.taskCollection, this.userCollection );
+				indexView.render();
+				// Check if there are any tasks.
+					// List tasks.
+				
+				$('#createTask').html( indexView.el );
 			},
 
 			CreateUser : function() {
-				console.log( "CreateUser : ", this );
-				var createUserView = new CreateUserView( this.userCollection );
-				createUserView.render();
+				if ( this.userCollection.length > 0 ) {
+					this.navigate( '', { trigger : true } );
+				} else {
+					var createUserView = new CreateUserView( this.userCollection );
+					createUserView.render();
+				}
 			},
 
 			defaultAction : function( actions ) {

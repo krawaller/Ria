@@ -1,11 +1,11 @@
-define(['Backbone', 'lib/backbone/backbone-relational'],
-  function( Backbone) {
+define(['Backbone', 'lib/backbone/backbone-relational', 'models/UserModel'],
+  function( Backbone, UserModel ) {
     var TaskModel = Backbone.RelationalModel.extend({
       relations : [
         {
           type : Backbone.HasOne,
           key : 'userId',
-          relatedModel : 'User',
+          relatedModel : 'UserModel',
           includeInJSON : Backbone.Model.prototype.idAttribute,
           collectionType : 'UserCollection'
         },

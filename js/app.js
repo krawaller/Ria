@@ -8,6 +8,7 @@ define([
 		return {
 			init : function() {
 				var router = new Router();
+				Backbone.history.start();
 			}
 	}
 });
