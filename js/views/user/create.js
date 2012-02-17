@@ -17,7 +17,7 @@ define([
 			},
 
 			addUser : function( userModel ) {
-				console.log( 'User created' );
+				userModel.save();
 			},
 
 			events : {
@@ -34,6 +34,7 @@ define([
 
 				try {
 					var model = new UserModel( { name : username } );
+					console.log( "Created User :", model );
 					this.userCollection.add( model );
 
 				} catch( error ) {

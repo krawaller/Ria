@@ -3,7 +3,8 @@ define(
 		'jQuery',
 		'Underscore',
 		'Backbone',
-		'models/TaskModel'
+		'models/TaskModel',
+		'lib/backbone/backbone.localStorage'
 	],
 
 	function( $, _, Backbone, TaskModel ) {
@@ -24,8 +25,7 @@ define(
 			},
 
 			addOne : function( taskModel ) {
-				console.log( this.taskCollection );
-				console.log( "TaskCollection - Added task." );
+				taskModel.save();
 			},
 
 			render : function() {
@@ -42,18 +42,16 @@ define(
 				var user = this.userCollection.at( 0 );
 
 				try {
-					var model = new TaskModel({
+					this.taskCollection.create({
 						content : taskContent,
 						time : new Date(),
 						completed : false,
-						user: user,
+						user : user,
 						category : category
-					});
 
-					// add the model to the collection.
-					this.taskCollection.add( model );
+					});
 				} catch( error ) {
-					console.log( "Error :", error );
+					console.log( "Error: ", error.stack );
 				}
 			}
 		});

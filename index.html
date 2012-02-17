@@ -12,7 +12,7 @@
             <label for="categories">Category</label>
             <select name="select-category" id="create-task-select-category" class="task-category">
                 <% _.each( category, function( category ) { %>
-                    ´<option value="<%= category.attributes.id %>"><%= category.attributes.label %></option>
+                    <option value="<%= category.attributes.id %>"><%= category.attributes.label %></option>
                 <% }); %>
             </select>
     		<label for="task-content">Task:</label>
@@ -31,6 +31,14 @@
         </form>
     </script>
 
+    <!-- TodoList template -->
+    <script type="text/template" id="todo-list-template">
+        <div class="todo-category">
+            <% _.each( tasks, function( tasks ) { %>
+                <p><%= tasks.attributes.content %></p>
+            <% }); %>
+        </div>
+    </script>
 
 </head>
 <body>
@@ -38,6 +46,9 @@
 		<div id="createTask">
 
 		</div>
+        <div id="todo-holder">
+           
+        </div>
 
         <div id="create-user">
             

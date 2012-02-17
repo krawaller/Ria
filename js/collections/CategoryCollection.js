@@ -16,7 +16,7 @@ define([
 			// If collection is empty, create defaults.
 			if ( this.models.length === 0 ) {
 				this.create( { label : 'Work' } );
-				this.create( { label : 'Scool' } );
+				this.create( { label : 'School' } );
 				this.create( { label : 'Private' } );
 			}
 		}

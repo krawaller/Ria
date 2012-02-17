@@ -7,9 +7,10 @@ define([
 	'UserCollection',
 	'TodoEventCollection',
 	'views/main/index',
-	'views/user/create'],
+	'views/user/create',
+	'views/main/todoholder'],
 
-	function( $, _, Backbone, CategoryCollection, TaskCollection, UserCollection, TodoEventCollection, IndexView, CreateUserView ) {
+	function( $, _, Backbone, CategoryCollection, TaskCollection, UserCollection, TodoEventCollection, IndexView, CreateUserView, TodoHolderView ) {
 		return AppRouter = Backbone.Router.extend({
 			initialize : function() {
 				this.categoryCollection = new CategoryCollection();
@@ -25,13 +26,16 @@ define([
 			},
 
 			Home : function() {
-				// Checks if no user in localStorage
-				if ( this.userCollection.length === 0 ) {
+				// Checks if no user in 
+				if ( this.userCollection.length == 0 ) {
 					this.navigate( 'createUser', { trigger : true, replace : true } );
 				}
 
 				var indexView = new IndexView( this.categoryCollection, this.taskCollection, this.userCollection );
 				indexView.render();
+
+				var todoHolderView = new TodoHolderView( this.taskCollection );
+				todoHolderView.render();
 				// Check if there are any tasks.
 					// List tasks.
 				
@@ -39,8 +43,12 @@ define([
 			},
 
 			CreateUser : function() {
-				var createUserView = new CreateUserView( this.userCollection );
-				createUserView.render();
+				if ( this.userCollection.length > 0 ) {
+					this.navigate( '', { trigger: true, replace : false } );	
+				} else {
+					var createUserView = new CreateUserView( this.userCollection );
+					createUserView.render();	
+				}
 			},
 
 			defaultAction : function( actions ) {
