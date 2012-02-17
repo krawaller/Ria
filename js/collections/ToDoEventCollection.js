@@ -6,7 +6,11 @@ define(
 
 	function( Backbone, TodoEventModel ) {
 		var ToDoEventCollection = Backbone.Collection.extend({
-			model : TodoEventModel
+			model : TodoEventModel,
+
+			initialize : function() {
+				this.fetch();
+			}
 		});
 
 		return TodoEventModel;

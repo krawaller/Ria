@@ -12,6 +12,7 @@ define([
 
 		initialize : function() {
 			this.fetch();
+
 		}
 	});
 

@@ -12,7 +12,7 @@
             <label for="categories">Category</label>
             <select name="select-category" id="create-task-select-category" class="task-category">
                 <% _.each( category, function( category ) { %>
-                    ´<option value="<%= category.attributes.categoryId %>"><%= category.attributes.label %></option>
+                    ´<option value="<%= category.attributes.id %>"><%= category.attributes.label %></option>
                 <% }); %>
             </select>
     		<label for="task-content">Task:</label>

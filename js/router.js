@@ -39,12 +39,8 @@ define([
 			},
 
 			CreateUser : function() {
-				if ( this.userCollection.length > 0 ) {
-					this.navigate( '', { trigger : true } );
-				} else {
-					var createUserView = new CreateUserView( this.userCollection );
-					createUserView.render();
-				}
+				var createUserView = new CreateUserView( this.userCollection );
+				createUserView.render();
 			},
 
 			defaultAction : function( actions ) {

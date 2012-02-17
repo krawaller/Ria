@@ -1,13 +1,23 @@
-define(
-	['jQuery', 'Underscore', 'Backbone' ],
+define([
+		'jQuery',
+		'Underscore',
+		'Backbone',
+		'models/UserModel'
+	],
 	
-	function( $, _, Backbone ) {
+	function( $, _, Backbone, UserModel ) {
 		var createUserView = Backbone.View.extend({
 			el : $('#create-user'),
 
 			initialize : function( userCollection ) {
 				this.template = _.template( $( '#create-user-template' ).html() );
 				this.userCollection = userCollection;
+
+				this.userCollection.bind( 'add', this.addUser, this );
+			},
+
+			addUser : function( userModel ) {
+				console.log( 'User created' );
 			},
 
 			events : {
@@ -21,7 +31,14 @@ define(
 
 			submitCreateUserForm : function( e ) {
 				var username = this.$('#input-username').val();
-				this.userCollection.create( { userId : 1, name : username } );
+
+				try {
+					var model = new UserModel( { name : username } );
+					this.userCollection.add( model );
+
+				} catch( error ) {
+					console.log( "Error : ", error );
+				}
 			}
 
 		});

@@ -8,15 +8,16 @@ define([
 	var CategoryCollection = Backbone.Collection.extend({
 		model : CategoryModel,
 
-		localStorage : new Store("Categories"),
+		localStorage : new Store( "Categories" ),
 
 		initialize : function() {
 			this.fetch();
 
+			// If collection is empty, create defaults.
 			if ( this.models.length === 0 ) {
-				this.create( { categoryId : 1, label : 'Work' } );
-				this.create( { categoryId : 2, label : 'Scool' } );
-				this.create( { categoryId : 3, label : 'Private' } );
+				this.create( { label : 'Work' } );
+				this.create( { label : 'Scool' } );
+				this.create( { label : 'Private' } );
 			}
 		}
 	});

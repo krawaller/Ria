@@ -1,31 +1,36 @@
-define(['Backbone', 'lib/backbone/backbone-relational', 'models/UserModel'],
-  function( Backbone, UserModel ) {
+define([
+      'Backbone',
+      'UserCollection',
+      'CategoryCollection',
+      'models/UserModel',
+      'models/CategoryModel'
+    ],
+  function( Backbone, UserCollection, CategoryCollection, UserModel, CategoryModel ) {
     var TaskModel = Backbone.RelationalModel.extend({
       relations : [
         {
           type : Backbone.HasOne,
-          key : 'userId',
-          relatedModel : 'UserModel',
+          key : 'user',
+          relatedModel : UserModel,
           includeInJSON : Backbone.Model.prototype.idAttribute,
-          collectionType : 'UserCollection'
+          collectionType : UserCollection,
+          reverseRelation : {
+            type : Backbone.HasMany,
+            key : 'task'
+          }
         },
         {
           type : Backbone.HasOne,
-          key : 'categoryId',
-          relatedModel : 'Category',
+          key : 'category',
+          relatedModel : CategoryModel,
           includeInJSON : Backbone.Model.prototype.idAttribute,
-          collectionType : 'CategoryCollection'
+          collectionType : CategoryCollection,
+          reverseRelation : {
+            type : Backbone.HasMany,
+            key : 'task'
+          }
         }
       ],
-      
-      defaults : {
-        taskId : null,
-        content : null,
-        time : null,
-        completed : false,
-        userId : null,
-        categoryId : null  
-      },
       
       /**
         * @param {Array} attrs The attributes to validate.
@@ -33,9 +38,8 @@ define(['Backbone', 'lib/backbone/backbone-relational', 'models/UserModel'],
         * (throw error in backbone.) does not run set or save on model.
         */
       validate : function( attrs ) {
-        if (  !attrs.taskId || !attrs.content || !attrs.time || !attrs.completed || 
-              !attrs.userId || !attrs.categoryId ) {
-               return "The task object does not validate."; 
+        if (  !attrs.content || !attrs.user || !attrs.category ) {
+               throw "The task object does not validate.";
         }
       }  
     });

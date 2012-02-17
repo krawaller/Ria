@@ -13,24 +13,14 @@ define(
 				collectionType : 'UserCollection'
 			}],
 	 
-			defaults : {
-				name : null,
-				time : null,
-				userId : null
-			},
-	 
-			initialize : function() {
-				// Empty function for future need.
-			},
-	 
 			/**
-			* @param {Array} attrs The attributes to validate.
-			* @returns {String} If something does not validate, return string
-			* (throw error in backbone.) does not run set or save on model.
-			*/
+			  * @param {Array} attrs The attributes to validate.
+			  * @returns {String} If something does not validate, return string
+			  * (throw error in backbone.) does not run set or save on model.
+			  */
 			validate : function( attrs ) {
 				if (  !attrs.name || !attrs.time || !attrs.userId ) {
-				return "The ToDoEvent object does not validate."; 
+					throw "The ToDoEvent object does not validate."; 
 				}
 			}
 	});

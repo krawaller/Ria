@@ -2,10 +2,11 @@ define(
 	[	
 		'jQuery',
 		'Underscore',
-		'Backbone'
+		'Backbone',
+		'models/TaskModel'
 	],
 
-	function( $, _, Backbone ) {
+	function( $, _, Backbone, TaskModel ) {
 		var mainIndexView = Backbone.View.extend({
 			
 			initialize : function( categoryCollection, taskCollection, userCollection ) {
@@ -13,36 +14,47 @@ define(
 				this.categoryCollection = categoryCollection;
 				this.taskCollection = taskCollection;
 				this.userCollection = userCollection;
+
+				this.taskCollection.bind( 'add', this.addOne, this );
+
 			},
 
 			events : {
 				'click #submit-task-form' : 'submitForm'		
 			},
 
-			render : function() {
-				$(this.el).html( this.template( {
-					category : this.categoryCollection.models
+			addOne : function( taskModel ) {
+				console.log( this.taskCollection );
+				console.log( "TaskCollection - Added task." );
+			},
 
-				} ) );
+			render : function() {
+				$(this.el).html( this.template({
+					category : this.categoryCollection.models
+				}));
 			},
 
 			submitForm : function( e ) {
 				// Get the needed values for a task.
 				var taskContent = $('.task-content').val();
-				var taskCategory = $('.task-category').val();
+				var taskCategoryId = $('.task-category').val();
+				var category = this.categoryCollection.get( taskCategoryId );
+				var user = this.userCollection.at( 0 );
 
-				console.log( this.userCollection.at(0) );
-
-				this.taskCollection.create({ 
-						taskId : ( this.taskCollection.lenth + 1 ),
+				try {
+					var model = new TaskModel({
 						content : taskContent,
 						time : new Date(),
 						completed : false,
-						// Gets the userId from userCollection.
-						// Specified index 0 because limit of one user per browser.
-						userId: this.userCollection.at(0),
-						categoryId : taskCategory
-				});
+						user: user,
+						category : category
+					});
+
+					// add the model to the collection.
+					this.taskCollection.add( model );
+				} catch( error ) {
+					console.log( "Error :", error );
+				}
 			}
 		});
 
