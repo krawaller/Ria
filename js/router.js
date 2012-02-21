@@ -34,7 +34,7 @@ define([
 				var indexView = new IndexView( this.categoryCollection, this.taskCollection, this.userCollection );
 				indexView.render();
 
-				var todoHolderView = new TodoHolderView( this.taskCollection );
+				var todoHolderView = new TodoHolderView( this.taskCollection, this.categoryCollection );
 				todoHolderView.render();
 				// Check if there are any tasks.
 					// List tasks.

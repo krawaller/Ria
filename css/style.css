@@ -43,7 +43,6 @@ p { font-size: 12px; line-height: 18px; }
 
 #create-user { position: absolute; top: 100px; left: 100px; background: red;}
 
-#todo-holder { height: 100%; width: 86%; background: green; float: left;}
+#todo-category { height: 100%; width: 86%; background: green; float: left;}
 
-
-.todo-category { padding: 10px; width: 16%; height: 100%; background: red;}
+.todo-holder { padding: 10px; width: 16%; height: 100%; background: red; float: left; border-right: 1px solid black; }

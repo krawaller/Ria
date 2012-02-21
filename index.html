@@ -33,11 +33,20 @@
 
     <!-- TodoList template -->
     <script type="text/template" id="todo-list-template">
-        <div class="todo-category">
-            <% _.each( tasks, function( tasks ) { %>
-                <p><%= tasks.attributes.content %></p>
+            <% _.each( categories, function( categories ) { %>
+                <div class="todo-holder <%= categories.attributes.label %>">
+                    
+                </div>
             <% }); %>
-        </div>
+    </script>
+
+    <!-- Todos -->
+    <script type="text/template" id="todos">
+        <% _.each( todo, function( todo ) { %>
+            <div class="todo">
+            <p><%= todo.attributes.content %></p>
+            </div>
+        <% }); %>
     </script>
 
 </head>
@@ -46,7 +55,7 @@
 		<div id="createTask">
 
 		</div>
-        <div id="todo-holder">
+        <div id="todo-category">
            
         </div>
 
