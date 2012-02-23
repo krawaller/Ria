@@ -8,9 +8,9 @@ define([
 	'TodoEventCollection',
 	'views/main/index',
 	'views/user/create',
-	'views/main/todoholder'],
+	'views/main/categorycollectionview'],
 
-	function( $, _, Backbone, CategoryCollection, TaskCollection, UserCollection, TodoEventCollection, IndexView, CreateUserView, TodoHolderView ) {
+	function( $, _, Backbone, CategoryCollection, TaskCollection, UserCollection, TodoEventCollection, IndexView, CreateUserView, CategoryCollectionView ) {
 		return AppRouter = Backbone.Router.extend({
 			initialize : function() {
 				this.categoryCollection = new CategoryCollection();
@@ -34,10 +34,8 @@ define([
 				var indexView = new IndexView( this.categoryCollection, this.taskCollection, this.userCollection );
 				indexView.render();
 
-				var todoHolderView = new TodoHolderView( this.taskCollection, this.categoryCollection );
-				todoHolderView.render();
-				// Check if there are any tasks.
-					// List tasks.
+				var categoryCollectionView = new CategoryCollectionView( { collection : this.categoryCollection } );
+				categoryCollectionView.render();
 				
 				$('#createTask').html( indexView.el );
 			},

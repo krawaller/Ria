@@ -41,12 +41,9 @@
     </script>
 
     <!-- Todos -->
-    <script type="text/template" id="todos">
-        <% _.each( todo, function( todo ) { %>
-            <div class="todo">
-            <p><%= todo.attributes.content %></p>
-            </div>
-        <% }); %>
+    <script type="text/template" id="todo-template">
+            <p><%= todo.content %></p>
+            <p><%= todo.time %></p>
     </script>
 
 </head>
@@ -55,7 +52,7 @@
 		<div id="createTask">
 
 		</div>
-        <div id="todo-category">
+        <div id="todos-holder">
            
         </div>
 
