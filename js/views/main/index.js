@@ -21,7 +21,12 @@ define(
 			},
 
 			events : {
-				'click #submit-task-form' : 'submitForm'		
+				'click #submit-task-form' : 'submitForm',
+				'click h2' : 'test'
+			},
+			
+			test: function(){
+				console.log("clicked the headline woo!");
 			},
 
 			addOne : function( taskModel ) {
@@ -29,15 +34,15 @@ define(
 			},
 
 			render : function() {
-				$(this.el).html( this.template({
+				this.$el.html( this.template({
 					category : this.categoryCollection.models
 				}));
 			},
 
 			submitForm : function( e ) {
 				// Get the needed values for a task.
-				var taskContent = $('.task-content').val();
-				var taskCategoryId = $('.task-category').val();
+				var taskContent = this.$('.task-content').val();
+				var taskCategoryId = this.$('.task-category').val();
 				var category = this.categoryCollection.get( taskCategoryId );
 				var user = this.userCollection.at( 0 );
 
